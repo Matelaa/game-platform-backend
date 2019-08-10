@@ -1,0 +1,26 @@
+{
+  "name": "game-platform-backend",
+  "version": "1.0.0",
+  "description": "A simple platform of \"games\" where it will be possible to create matches between teams, and in the future to be consumed with React, basically to train some Node concepts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matelaa/game-platform-backend.git"
+  },
+  "keywords": [
+    "game",
+    "game-platform",
+    "game-platform-backend",
+    "backend",
+    "service"
+  ],
+  "author": "José Matela Neto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Matelaa/game-platform-backend/issues"
+  },
+  "homepage": "https://github.com/Matelaa/game-platform-backend#readme"
+}
