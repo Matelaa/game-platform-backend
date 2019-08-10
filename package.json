@@ -22,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/Matelaa/game-platform-backend/issues"
   },
-  "homepage": "https://github.com/Matelaa/game-platform-backend#readme"
+  "homepage": "https://github.com/Matelaa/game-platform-backend#readme",
+  "devDependencies": {
+    "eslint": "^6.1.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
