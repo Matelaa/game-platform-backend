@@ -10,6 +10,7 @@ class App {
     this.isDev = process.env.NODE_ENV !== "production"
 
     this.database()
+    this.middlewares()
     this.routes()
   }
 
@@ -21,6 +22,10 @@ class App {
     mongoose.connect(databaseConfig.uri, {
       useNewUrlParser: true
     })
+  }
+
+  middlewares() {
+    this.express.use(express.json())
   }
 }
 
