@@ -31,7 +31,7 @@ module.exports = {
       return res.status(404).json({ error: 'This player does not exist in our database' })
     } else if (player.team) {
       const { name } = await Team.findById(player.team)
-      return res.status(403).json({ error: `This player is associated with the '${name}', you cannot delete someone who has a team.` })
+      return res.status(403).json({ error: `This player is associated with the '${name}' team, you cannot delete someone who has a team.` })
     }
 
     const { name } = await Player.findByIdAndDelete(id)
