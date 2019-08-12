@@ -1,6 +1,7 @@
 const express = require('express')
 const PlayerController = require('./controller/PlayerController')
 const TeamController = require('./controller/TeamController')
+const PlayerTeamController = require('./controller/PlayerTeamController')
 
 const routes = express.Router()
 
@@ -13,5 +14,9 @@ routes.delete('/team/:id', TeamController.destroy)
 routes.get('/players', PlayerController.index)
 routes.post('/player', PlayerController.store)
 routes.delete('/player/:id', PlayerController.destroy)
+
+// PlayerTeam
+routes.post('/player/:idPlayer/team/:idTeam', PlayerTeamController.store)
+routes.delete('/player/:idPlayer/team/:idTeam', PlayerTeamController.destroy)
 
 module.exports = routes
