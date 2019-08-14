@@ -28,7 +28,7 @@ module.exports = {
 
     if (!teamExists) {
       return res.status(404).json({ error: 'This team does not exist in our database.' })
-    } else if (teamExists.players !== null) {
+    } else if (teamExists.players.length > 0) {
       return res.status(403).json({ error: 'This team has players associated with it, it is not possible to eliminate before removing all players.' })
     }
 
