@@ -24,7 +24,7 @@ module.exports = {
       const player = await Player.create(req.body)
       return res.status(201).json(player)
 
-    } else if (team !== null) {
+    } else {
 
       if (teamExists) {
         
