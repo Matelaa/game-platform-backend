@@ -20,6 +20,8 @@ module.exports = {
       const playerHasTeam = await Team.findById(player.team)
       console.log(playerHasTeam.name)
       return res.status(406).json({ error: `This player already have a team, team: ${playerHasTeam.name}` })
+    } else if (team.players.length === 5) {
+      return res.status(400).json({ error: `This team already have 5 players.` })
     }
 
     player.team = team._id
