@@ -17,6 +17,5 @@ routes.delete('/player/:id', PlayerController.destroy)
 
 // PlayerTeam
 routes.post('/player/:idPlayer/team/:idTeam', PlayerTeamController.store)
-routes.delete('/player/:idPlayer/team/:idTeam', PlayerTeamController.destroy)
 
 module.exports = routes
