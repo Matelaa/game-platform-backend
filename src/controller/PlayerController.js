@@ -29,6 +29,11 @@ module.exports = {
       if (teamExists) {
         
         const team = await Team.findById(teamExists._id)
+
+        if (team.players.length === 5) {
+          return res.status(400).json({ error: `This team already have 5 players.` })
+        }
+
         const player = await Player.create({ photo: req.body.photo,
                                              name: req.body.name,
                                              nickname: req.body.nickname,
