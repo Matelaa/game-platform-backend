@@ -1,4 +1,5 @@
 const Team = require('../model/Team')
+const Player = require('../model/Player')
 
 module.exports = {
   async index(req, res) {
@@ -17,7 +18,6 @@ module.exports = {
     }
 
     const team = await Team.create(req.body)
-
     return res.status(201).json(team)
   },
 
@@ -28,12 +28,20 @@ module.exports = {
 
     if (!teamExists) {
       return res.status(404).json({ error: 'This team does not exist in our database.' })
+
     } else if (teamExists.players.length > 0) {
-      return res.status(403).json({ error: 'This team has players associated with it, it is not possible to eliminate before removing all players.' })
+      while (teamExists.players.length > 0) {
+        const removed = teamExists.players.pop()
+        const player = await Player.findById(removed)
+        player.team = null
+        player.save()
+      }
+
+      const { name } = await Team.findByIdAndDelete(id)
+      return res.status(200).json({ success: `The team '${name}' was successfully deleted.` })
     }
 
     const { name } = await Team.findByIdAndDelete(id)
-
     res.status(200).json({ success: `The team '${name}' was successfully deleted.` })
   }
 }
