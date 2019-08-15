@@ -73,7 +73,6 @@ module.exports = {
     }
 
     const { name } = await Player.findByIdAndDelete(id)
-
     return res.status(200).json({ success: `The player '${name}' was successfully deleted.` })
   }
 }

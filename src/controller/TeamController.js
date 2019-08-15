@@ -31,6 +31,7 @@ module.exports = {
 
     } else if (teamExists.players.length > 0) {
       while (teamExists.players.length > 0) {
+
         const removed = teamExists.players.pop()
         const player = await Player.findById(removed)
         player.team = null
@@ -38,10 +39,12 @@ module.exports = {
       }
 
       const { name } = await Team.findByIdAndDelete(id)
+
       return res.status(200).json({ success: `The team '${name}' was successfully deleted.` })
     }
 
     const { name } = await Team.findByIdAndDelete(id)
+
     res.status(200).json({ success: `The team '${name}' was successfully deleted.` })
   }
 }
