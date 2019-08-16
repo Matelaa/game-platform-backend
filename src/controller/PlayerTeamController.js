@@ -3,7 +3,6 @@ const Team = require('../model/Team')
 
 module.exports = {
   async store(req, res) {
-
     const idPlayer = req.params.idPlayer
     const idTeam = req.params.idTeam
 
@@ -11,22 +10,19 @@ module.exports = {
     const team = await Team.findById(idTeam)
 
     if (!team) {
-
       return res.status(404).json({ error: 'Team not exists.' })
-      
-    } else if (!player) {
-
+    }
+    
+    if (!player) {
       return res.status(404).json({ error: 'Player not exists.' })
     }
 
     if (player.team) {
-
       const playerHasTeam = await Team.findById(player.team)
-
       return res.status(406).json({ error: `This player already have a team, team: ${playerHasTeam.name}` })
-
-    } else if (team.players.length === 5) {
-
+    }
+    
+    if (team.players.length === 5) {
       return res.status(400).json({ error: `This team already have 5 players.` })
     }
 

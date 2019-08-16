@@ -16,45 +16,37 @@ module.exports = {
     const teamExists = await Team.findOne({ name: team })
 
     if (playerExists) {
-
       return res.status(406).json({ error: `The player '${nickname}' already exists in our database` })
-
-    } else if (team === undefined) {
-
-      const player = await Player.create(req.body)
-
-      return res.status(201).json(player)
-
-    } else {
-
-      if (teamExists) {
-        
-        const team = await Team.findById(teamExists._id)
-
-        if (team.players.length === 5) {
-
-          return res.status(400).json({ error: `This team already have 5 players.` })
-        }
-
-        const player = await Player.create({ photo: req.body.photo,
-                                             name: req.body.name,
-                                             nickname: req.body.nickname,
-                                             role: req.body.role,
-                                             team: team })
-
-        player.team = team._id
-        team.players.push(player._id)
-
-        await team.save()
-
-        return res.status(201).json({ player,
-                                      team })
-                                      
-      } else {
-
-        return res.status(400).json({ error: `The team '${team}' doesnt exists.` })
-      }
     }
+    
+    if (team === undefined) {
+      const player = await Player.create(req.body)
+      return res.status(201).json(player)
+    }
+    
+    if (teamExists) {
+      const team = await Team.findById(teamExists._id)
+
+      if (team.players.length === 5) {
+        return res.status(400).json({ error: `This team already have 5 players.` })
+      }
+
+      const player = await Player.create({ photo: req.body.photo,
+                                           name: req.body.name,
+                                           nickname: req.body.nickname,
+                                           role: req.body.role,
+                                           team: team })
+
+      player.team = team._id
+      team.players.push(player._id)
+
+      await team.save()
+
+      return res.status(201).json({ player,
+                                    team })                             
+    }
+    
+    return res.status(400).json({ error: `The team '${team}' doesnt exists.` })
   },
 
   async destroy(req, res) {
@@ -63,11 +55,10 @@ module.exports = {
     const player = await Player.findById(id)
 
     if (!player) {
-
       return res.status(404).json({ error: 'This player does not exist in our database' })
-
-    } else if (player.team) {
-
+    }
+    
+    if (player.team) {
       const team = await Team.findById(player.team)
 
       player.team = null
@@ -82,7 +73,6 @@ module.exports = {
     }
 
     const { name } = await Player.findByIdAndDelete(id)
-
     return res.status(200).json({ success: `The player '${name}' was successfully deleted.` })
   }
 }
