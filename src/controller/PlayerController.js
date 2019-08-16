@@ -1,5 +1,6 @@
 const Player = require('../model/Player')
 const Team = require('../model/Team')
+
 module.exports = {
   async index(req, res) {
     const players = await Player.find({})
@@ -8,7 +9,6 @@ module.exports = {
   },
 
   async store(req, res) {
-
     const { nickname } = req.body
     const { team } = req.body
 
@@ -22,6 +22,7 @@ module.exports = {
     } else if (team === undefined) {
 
       const player = await Player.create(req.body)
+
       return res.status(201).json(player)
 
     } else {
@@ -31,6 +32,7 @@ module.exports = {
         const team = await Team.findById(teamExists._id)
 
         if (team.players.length === 5) {
+
           return res.status(400).json({ error: `This team already have 5 players.` })
         }
 
@@ -41,14 +43,15 @@ module.exports = {
                                              team: team })
 
         player.team = team._id
-
         team.players.push(player._id)
+
         await team.save()
 
         return res.status(201).json({ player,
                                       team })
                                       
       } else {
+
         return res.status(400).json({ error: `The team '${team}' doesnt exists.` })
       }
     }
@@ -60,6 +63,7 @@ module.exports = {
     const player = await Player.findById(id)
 
     if (!player) {
+
       return res.status(404).json({ error: 'This player does not exist in our database' })
 
     } else if (player.team) {
@@ -78,6 +82,7 @@ module.exports = {
     }
 
     const { name } = await Player.findByIdAndDelete(id)
+
     return res.status(200).json({ success: `The player '${name}' was successfully deleted.` })
   }
 }
